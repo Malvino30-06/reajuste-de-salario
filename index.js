@@ -9,120 +9,10 @@ app.get("/", (req, res) => {
   const { idade, sexo, salario_base, ano_de_contratacao, matricula } =
     req.query;
 
-  const funcionario = {
-    idade: idade,
-    sexo: sexo,
-    salario_base: salario_base,
-    ano_de_contratacao: ano_de_contratacao,
-    matricula: matricula,
-  };
-  let salario_novo = salario_base;
-  if (
-    (funcionario.idade >= 18 && funcionario.idade <= 39) ||
-    2025 - funcionario.ano_de_contratacao <= 10
-  ) {
-    if (funcionario.sexo === "M") {
-      salario_novo = salario_base * 1.1 - 10;
-      return res.send(`<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário</title>
-</head>
-<body>
-    <h1>Olá, querido funcionário!</h1>
-    <h2>Seu salário reajustado é R$${salario_novo.toFixed(2)}</h2>
-</body>
-</html>`);
-    }
-    if (funcionario.sexo === "F") {
-      salario_novo = salario_base * 1.08 - 11;
-      return res.send(`<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário</title>
-</head>
-<body>
-    <h1>Olá, querido funcionário!</h1>
-    <h2>Seu salário reajustado é R$${salario_novo.toFixed(2)}</h2>
-</body>
-</html>`);
-    }
-  } else if (
-    (funcionario.idade >= 40 && funcionario.idade <= 69) ||
-    2025 - funcionario.ano_de_contratacao <= 10
-  ) {
-    if (funcionario.sexo === "M") {
-      salario_novo = salario_base * 1.08 - 5;
-      return res.send(`<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário</title>
-</head>
-<body>
-    <h1>Olá, querido funcionário!</h1>
-    <h2>Seu salário reajustado é R$${salario_novo.toFixed(2)}</h2>
-</body>
-</html>`);
-    }
-    if (funcionario.sexo === "F") {
-      salario_novo = salario_base * 1.1 - 7;
-      return res.send(`<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário</title>
-</head>
-<body>
-    <h1>Olá, querido funcionário!</h1>
-    <h2>Seu salário reajustado é R$${salario_novo.toFixed(2)}</h2>
-</body>
-</html>`);
-    }
-  }
+  if (Object.keys(req.query).length === 0) {
+    // pra verificar se a URL foi passada vazia (perguntei pra IA como fazer isso)
 
-  if (
-    (funcionario.idade >= 70 && funcionario.idade <= 99) ||
-    ano_atual - funcionario.ano_de_contratacao <= 10
-  ) {
-    if (funcionario.sexo === "M") {
-      salario_novo = salario_base * 1.15 - 15;
-      res.send(`<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário</title>
-</head>
-<body>
-    <h1>Olá, querido funcionário!</h1>
-    <h2>Seu salário reajustado é R$${salario_novo.toFixed(2)}</h2>
-</body>
-</html>`);
-    }
-    if (funcionario.sexo === "F") {
-      salario_novo = salario_base * 1.17 - 17;
-      res.send(`<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário</title>
-</head>
-<body>
-    <h1>Olá, querido funcionário!</h1>
-    <h2>Seu salário reajustado é R$${salario_novo.toFixed(2)}</h2>
-</body>
-</html>`);
-    }
-  } else {
-    res.send(`<!DOCTYPE html>
+    return res.send(`<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -136,8 +26,15 @@ app.get("/", (req, res) => {
 </body>
 </html>`);
   }
-  if (funcionario.idade < 18) {
-    res.send(`<!DOCTYPE html>
+
+  const funcionario = {
+    idade: idade,
+    sexo: sexo,
+    salario_base: salario_base,
+    ano_de_contratacao: ano_de_contratacao,
+    matricula: matricula,
+  };
+  const invalido = `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -148,8 +45,83 @@ app.get("/", (req, res) => {
     <h1>Olá, querido funcionário!</h1>
     <h2>Não foi possível realizar o cálculo do reajuste salarial, pois os dados não são válidos.</h2>
 </body>
-</html>`);
+</html>`;
+  let salario_novo = salario_base;
+
+  const matri = parseInt(funcionario.matricula);
+  if (funcionario.idade <= 16) {
+    return res.send(invalido);
+  } else if (funcionario.ano_de_contratacao <= 1960) {
+    res.send(invalido);
+  } else if (matri == 0 && matri != Number.isInteger(matri)) {
+    return res.send(invalido);
+  } else if (funcionario.salario_base <= 0) {
+    return res.send(invalido);
   }
+
+  if (funcionario.idade >= 18 && funcionario.idade <= 39) {
+    if (ano_atual - funcionario.ano_de_contratacao <= 10) {
+      if (funcionario.sexo === "M") {
+        salario_novo = salario_base * 1.1 - 10;
+      }
+      if (funcionario.sexo === "F") {
+        salario_novo = salario_base * 1.08 - 11;
+      }
+    } else {
+      if (funcionario.sexo === "M") {
+        salario_novo = salario_base * 1.1 + 17;
+      }
+      if (funcionario.sexo === "F") {
+        salario_novo = salario_base * 1.08 + 16;
+      }
+    }
+  } else if (funcionario.idade >= 40 && funcionario.idade <= 69) {
+    if (ano_atual - funcionario.ano_de_contratacao <= 10) {
+      if (funcionario.sexo === "M") {
+        salario_novo = salario_base * 1.08 - 5;
+      }
+      if (funcionario.sexo === "F") {
+        salario_novo = salario_base * 1.1 - 7;
+      }
+    } else {
+      if (funcionario.sexo === "M") {
+        salario_novo = salario_base * 1.08 + 15;
+      }
+      if (funcionario.sexo === "F") {
+        salario_novo = salario_base * 1.1 + 14;
+      }
+    }
+  }
+  if (funcionario.idade >= 70 && funcionario.idade <= 99) {
+    if (ano_atual - funcionario.ano_de_contratacao <= 10) {
+      if (funcionario.sexo === "M") {
+        salario_novo = salario_base * 1.15 - 15;
+      }
+      if (funcionario.sexo === "F") {
+        salario_novo = salario_base * 1.17 - 17;
+      }
+    } else {
+      if (funcionario.sexo === "M") {
+        salario_novo = salario_base * 1.15 + 13;
+      }
+      if (funcionario.sexo === "F") {
+        salario_novo = salario_base * 1.17 + 12;
+      }
+    }
+  }
+  const salario_reajustado = salario_novo.toFixed(2);
+  res.send(`<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário</title>
+</head>
+<body>
+    <h1>Olá, querido funcionário!</h1>
+    <h2>Seu salário reajustado é R$${salario_reajustado}</h2>
+</body>
+</html>`);
 });
 
 app.listen(porta, host, () => {
