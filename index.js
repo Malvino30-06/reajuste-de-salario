@@ -22,7 +22,7 @@ app.get("/", (req, res) => {
 <body>
     <h1>Olá, querido funcionário!</h1>
     <h2>Informe os seus dados na URL</h2>
-    <h3>Exemplo: http://localhost:3000/?idade=18&sexo=F&salario_base=1700&anoContratacao=2014&matricula=12345 ...</h3>
+    <h3>Exemplo: http://localhost:3000/?idade=19&sexo=F&salario_base=1700&ano_de_contratacao=2023&matricula=1</h3>
 </body>
 </html>`);
   }
@@ -47,12 +47,13 @@ app.get("/", (req, res) => {
 </body>
 </html>`;
   let salario_novo = salario_base;
-
+  const contratacao = parseInt(funcionario.ano_de_contratacao);
   const matri = parseInt(funcionario.matricula);
+
   if (funcionario.idade <= 16) {
     return res.send(invalido);
-  } else if (funcionario.ano_de_contratacao <= 1960) {
-    res.send(invalido);
+  } else if (contratacao < 1960) {
+    return res.send(invalido);
   } else if (matri == 0 && matri != Number.isInteger(matri)) {
     return res.send(invalido);
   } else if (funcionario.salario_base <= 0) {
@@ -62,50 +63,50 @@ app.get("/", (req, res) => {
   if (funcionario.idade >= 18 && funcionario.idade <= 39) {
     if (ano_atual - funcionario.ano_de_contratacao <= 10) {
       if (funcionario.sexo === "M") {
-        salario_novo = salario_base * 1.1 - 10;
+        salario_novo = salario_base * 1.1 - 10; // certo
       }
       if (funcionario.sexo === "F") {
-        salario_novo = salario_base * 1.08 - 11;
+        salario_novo = salario_base * 1.08 - 11; // certo
       }
     } else {
       if (funcionario.sexo === "M") {
-        salario_novo = salario_base * 1.1 + 17;
+        salario_novo = salario_base * 1.1 + 17; // certo
       }
       if (funcionario.sexo === "F") {
-        salario_novo = salario_base * 1.08 + 16;
+        salario_novo = salario_base * 1.08 + 16; // certo
       }
     }
   } else if (funcionario.idade >= 40 && funcionario.idade <= 69) {
     if (ano_atual - funcionario.ano_de_contratacao <= 10) {
       if (funcionario.sexo === "M") {
-        salario_novo = salario_base * 1.08 - 5;
+        salario_novo = salario_base * 1.08 - 5; // certo
       }
       if (funcionario.sexo === "F") {
-        salario_novo = salario_base * 1.1 - 7;
+        salario_novo = salario_base * 1.1 - 7; // certo
       }
     } else {
       if (funcionario.sexo === "M") {
-        salario_novo = salario_base * 1.08 + 15;
+        salario_novo = salario_base * 1.08 + 15; // certo
       }
       if (funcionario.sexo === "F") {
-        salario_novo = salario_base * 1.1 + 14;
+        salario_novo = salario_base * 1.1 + 14; // certo
       }
     }
   }
   if (funcionario.idade >= 70 && funcionario.idade <= 99) {
     if (ano_atual - funcionario.ano_de_contratacao <= 10) {
       if (funcionario.sexo === "M") {
-        salario_novo = salario_base * 1.15 - 15;
+        salario_novo = salario_base * 1.15 - 15; // certo
       }
       if (funcionario.sexo === "F") {
-        salario_novo = salario_base * 1.17 - 17;
+        salario_novo = salario_base * 1.17 - 17; // certo
       }
     } else {
       if (funcionario.sexo === "M") {
-        salario_novo = salario_base * 1.15 + 13;
+        salario_novo = salario_base * 1.15 + 13; // certo
       }
       if (funcionario.sexo === "F") {
-        salario_novo = salario_base * 1.17 + 12;
+        salario_novo = salario_base * 1.17 + 12; // certo
       }
     }
   }
