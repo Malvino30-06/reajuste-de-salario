@@ -22,7 +22,7 @@ app.get("/", (req, res) => {
 <body>
     <h1>Olá, querido funcionário!</h1>
     <h2>Informe os seus dados na URL</h2>
-    <h3>Exemplo: http://localhost:3000/?idade=19&sexo=F&salario_base=1700&ano_de_contratacao=2023&matricula=1</h3>
+    <h3>Exemplo: /?idade=19&sexo=F&salario_base=1700&ano_de_contratacao=2023&matricula=1</h3>
 </body>
 </html>`);
   }
