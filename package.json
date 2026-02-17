@@ -1,0 +1,30 @@
+{
+  "name": "reajuste-de-salario",
+  "version": "1.0.0",
+  "description": "Sistema web para validação de dados cadastrais e cálculo automático de aumentos salariais",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Malvino30-06/reajuste-de-salario.git"
+  },
+  "keywords": [
+    "http",
+    "html",
+    "rotas",
+    "metodos"
+  ],
+  "author": "Kauan Malvino Garcia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Malvino30-06/reajuste-de-salario/issues"
+  },
+  "homepage": "https://github.com/Malvino30-06/reajuste-de-salario#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
