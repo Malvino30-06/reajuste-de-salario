@@ -5,7 +5,9 @@ const host = "0.0.0.0";
 const porta = 3000;
 
 app.get("/", (req, res) => {
-  const ano_atual = 2026;
+  const data = new Date();
+  const ano_atual = data.getFullYear();
+  console.log(ano_atual);
   const { idade, sexo, salario_base, ano_de_contratacao, matricula } =
     req.query;
 
@@ -52,7 +54,7 @@ app.get("/", (req, res) => {
 
   if (funcionario.idade <= 16) {
     return res.send(invalido);
-  } else if (contratacao < 1960) {
+  } else if (contratacao < 1960 || contratacao > ano_atual) {
     return res.send(invalido);
   } else if (matri == 0 && matri != Number.isInteger(matri)) {
     return res.send(invalido);
