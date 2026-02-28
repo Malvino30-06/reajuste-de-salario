@@ -12,8 +12,6 @@ app.get("/", (req, res) => {
     req.query;
 
   if (Object.keys(req.query).length === 0) {
-    // pra verificar se a URL foi passada vazia (perguntei pra IA como fazer isso)
-
     return res.send(`<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,50 +63,50 @@ app.get("/", (req, res) => {
   if (funcionario.idade >= 18 && funcionario.idade <= 39) {
     if (ano_atual - funcionario.ano_de_contratacao <= 10) {
       if (funcionario.sexo === "M") {
-        salario_novo = salario_base * 1.1 - 10; // certo
+        salario_novo = salario_base * 1.1 - 10;
       }
       if (funcionario.sexo === "F") {
-        salario_novo = salario_base * 1.08 - 11; // certo
+        salario_novo = salario_base * 1.08 - 11;
       }
     } else {
       if (funcionario.sexo === "M") {
-        salario_novo = salario_base * 1.1 + 17; // certo
+        salario_novo = salario_base * 1.1 + 17;
       }
       if (funcionario.sexo === "F") {
-        salario_novo = salario_base * 1.08 + 16; // certo
+        salario_novo = salario_base * 1.08 + 16;
       }
     }
   } else if (funcionario.idade >= 40 && funcionario.idade <= 69) {
     if (ano_atual - funcionario.ano_de_contratacao <= 10) {
       if (funcionario.sexo === "M") {
-        salario_novo = salario_base * 1.08 - 5; // certo
+        salario_novo = salario_base * 1.08 - 5;
       }
       if (funcionario.sexo === "F") {
-        salario_novo = salario_base * 1.1 - 7; // certo
+        salario_novo = salario_base * 1.1 - 7;
       }
     } else {
       if (funcionario.sexo === "M") {
-        salario_novo = salario_base * 1.08 + 15; // certo
+        salario_novo = salario_base * 1.08 + 15;
       }
       if (funcionario.sexo === "F") {
-        salario_novo = salario_base * 1.1 + 14; // certo
+        salario_novo = salario_base * 1.1 + 14;
       }
     }
   }
   if (funcionario.idade >= 70 && funcionario.idade <= 99) {
     if (ano_atual - funcionario.ano_de_contratacao <= 10) {
       if (funcionario.sexo === "M") {
-        salario_novo = salario_base * 1.15 - 15; // certo
+        salario_novo = salario_base * 1.15 - 15;
       }
       if (funcionario.sexo === "F") {
-        salario_novo = salario_base * 1.17 - 17; // certo
+        salario_novo = salario_base * 1.17 - 17;
       }
     } else {
       if (funcionario.sexo === "M") {
-        salario_novo = salario_base * 1.15 + 13; // certo
+        salario_novo = salario_base * 1.15 + 13;
       }
       if (funcionario.sexo === "F") {
-        salario_novo = salario_base * 1.17 + 12; // certo
+        salario_novo = salario_base * 1.17 + 12;
       }
     }
   }
